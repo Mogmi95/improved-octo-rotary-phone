@@ -37,7 +37,7 @@ class JokeActivity: AppCompatActivity(){
     @Composable
     fun JokeScreen(
         onStarredListActivityRequested: () -> Unit,
-        jokeViewModel: JokeViewModelImpl = viewModel(), // TODO Handle injection
+        jokeViewModel: JokeViewModelDummyImpl = viewModel(), // TODO Handle injection
         modifier: Modifier = Modifier
     ) {
         val jokeUIState by jokeViewModel.getState().collectAsState()
@@ -45,7 +45,7 @@ class JokeActivity: AppCompatActivity(){
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(Color.Red)
+                // TODO .background(Color.Red)
         ) {
             if (jokeUIState.joke == null) {
                 Text("---")
@@ -76,7 +76,10 @@ class JokeActivity: AppCompatActivity(){
                 enabled = jokeUIState.joke != null,
                 onClick = { jokeViewModel.onUserRequestedJokeAsStarred(jokeUIState.joke!!) },
             ) {
-                Text("Star this joke")
+                when (jokeUIState.isJokeStarred) {
+                    true -> Text("Unstar this joke", modifier = Modifier.background(Color.Green))
+                    false -> Text("Star this joke", modifier = Modifier.background(Color.Red))
+                }
             }
 
             Button(

@@ -26,6 +26,9 @@ class JokeViewModelDummyImpl : JokeViewModel, ViewModel() {
     }
 
     override fun onUserRequestedJokeAsStarred(joke: Joke) {
-        TODO("Not yet implemented")
+        _uiState.value = JokeUIState(
+            joke = SingleJoke(42, "Hello world of jokes"),
+            isJokeStarred = true,
+        )
     }
 }
