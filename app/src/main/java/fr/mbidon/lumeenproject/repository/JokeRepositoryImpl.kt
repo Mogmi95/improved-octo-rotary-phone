@@ -9,7 +9,7 @@ class JokeRepositoryImpl(
     private val jokeDataSourceRemote: JokeDataSourceRemote,
     private val jokeDataSourceLocal: JokeDataSourceLocal
 ) : JokeRepository {
-    override fun requestNewJoke(): Joke? {
+    override suspend fun requestNewJoke(): Joke? {
         TODO("Not yet implemented")
     }
 

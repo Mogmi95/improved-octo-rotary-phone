@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.flowOf
  * This implementation is used for testing purposes.
  */
 class JokeRepositoryDummyImpl() : JokeRepository {
-    override fun requestNewJoke(): Joke? {
+    override suspend fun requestNewJoke(): Joke? {
         Log.d("JokeRepositoryDummyImpl", "requestNewJoke")
         return SingleJoke(1, "Hello world of jokes")
     }

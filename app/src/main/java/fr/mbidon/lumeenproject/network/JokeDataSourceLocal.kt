@@ -5,12 +5,12 @@ import fr.mbidon.lumeenproject.model.Joke
 interface JokeDataSourceLocal {
 
     /**
-     * Recovers jokes from the local storage.
+     * Recovers starred jokes from the local storage.
      */
-    suspend fun getCachedJokes(): List<Joke>
+    suspend fun getStarredJokes(): List<Joke>
 
     /**
-     * Saves jokes in the local storage.
+     * Save starred jokes in the local storage.
      */
-    suspend fun saveJokesToCache(jokes: List<Joke>)
+    suspend fun saveStarredJokes(jokes: List<Joke>)
 }
