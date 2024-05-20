@@ -14,6 +14,16 @@ data class JokeUIState(
 interface JokeViewModel {
 
     /**
+     * Called when the View is attached to the screen.
+     */
+    fun onAttached()
+
+    /**
+     * Called when the View is detached from the screen.
+     */
+    fun onDetached()
+
+    /**
      * Get the current state of the UI.
      */
     fun getState(): StateFlow<JokeUIState>

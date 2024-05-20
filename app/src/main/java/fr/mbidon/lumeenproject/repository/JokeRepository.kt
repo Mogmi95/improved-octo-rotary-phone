@@ -1,7 +1,7 @@
 package fr.mbidon.lumeenproject.repository
 
 import fr.mbidon.lumeenproject.model.Joke
-import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.StateFlow
 
 /**
  * Repository to manage Jokes
@@ -15,13 +15,29 @@ interface JokeRepository {
     suspend fun requestNewJoke(): Joke?
 
     /**
+     * Mark a joke as starred.
+     *
+     * If the joke is already starred, this method should do nothing.
+     */
+    suspend fun requestStarJoke(joke: Joke)
+
+    /**
+     * Remove a joke from the list of starred jokes.
+     *
+     * If the joke doesn't exist in the list of starred jokes, this method should do nothing.
+     */
+    suspend fun requestUnstarJoke(jokeId: Int)
+
+    /**
      * Get all the starred jokes.
      *
      * @return a flow of available starred jokes.
      */
-    fun getStarredJokes(): Flow<List<Joke>>
+    fun getStarredJokes(): StateFlow<List<Joke>>
 
     /**
+     * Fun's over.
+     *
      * Deletes any local storage of jokes.
      */
     fun clear()

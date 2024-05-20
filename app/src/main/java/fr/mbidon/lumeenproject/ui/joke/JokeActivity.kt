@@ -37,6 +37,16 @@ class JokeActivity: AppCompatActivity(){
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        jokeViewModel.onAttached()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        jokeViewModel.onDetached()
+    }
+
     @Composable
     fun JokeScreen(
         onStarredListActivityRequested: () -> Unit,

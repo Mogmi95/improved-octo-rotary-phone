@@ -6,11 +6,11 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import fr.mbidon.lumeenproject.network.api.JokeApi
 import fr.mbidon.lumeenproject.repository.JokeRepository
-import fr.mbidon.lumeenproject.repository.JokeRepositoryImpl
-import fr.mbidon.lumeenproject.repository.local.JokeDataSourceLocal
-import fr.mbidon.lumeenproject.repository.local.JokeDataSourceLocalImpl
-import fr.mbidon.lumeenproject.repository.remote.JokeDataSourceRemote
-import fr.mbidon.lumeenproject.repository.remote.JokeDataSourceRemoteImpl
+import fr.mbidon.lumeenproject.repository.JokeRepositoryDummyImpl
+import fr.mbidon.lumeenproject.repository.datasource.JokeDataSourceLocal
+import fr.mbidon.lumeenproject.repository.datasource.JokeDataSourceLocalRoomImpl
+import fr.mbidon.lumeenproject.repository.datasource.JokeDataSourceRemote
+import fr.mbidon.lumeenproject.repository.datasource.JokeDataSourceRemoteImpl
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -23,7 +23,7 @@ class RepositoryModule {
 
     @Provides
     fun provideJokeDataSourceLocal() : JokeDataSourceLocal {
-        return JokeDataSourceLocalImpl()
+        return JokeDataSourceLocalRoomImpl()
     }
 
     @Provides
@@ -31,7 +31,8 @@ class RepositoryModule {
         jokeDataSourceRemote: JokeDataSourceRemote,
         jokeDataSourceLocal: JokeDataSourceLocal
     ): JokeRepository {
-        return JokeRepositoryImpl(jokeDataSourceRemote, jokeDataSourceLocal)
+        //return JokeRepositoryImpl(jokeDataSourceRemote, jokeDataSourceLocal)
+        return JokeRepositoryDummyImpl()
     }
 
 }

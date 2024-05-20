@@ -1,8 +1,8 @@
-package fr.mbidon.lumeenproject.repository.local
+package fr.mbidon.lumeenproject.repository.datasource
 
 import fr.mbidon.lumeenproject.model.Joke
 
-class JokeDataSourceLocalImpl: JokeDataSourceLocal {
+class JokeDataSourceLocalRoomImpl: JokeDataSourceLocal {
 
     override suspend fun getStarredJokes(): List<Joke> {
         TODO("Not yet implemented")

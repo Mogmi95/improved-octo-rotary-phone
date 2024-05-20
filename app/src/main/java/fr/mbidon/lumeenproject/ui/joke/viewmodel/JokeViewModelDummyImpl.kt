@@ -34,4 +34,12 @@ class JokeViewModelDummyImpl @Inject constructor() : JokeViewModel, ViewModel() 
             isJokeStarred = true,
         )
     }
+
+    override fun onAttached() {
+        // Nothing to do
+    }
+
+    override fun onDetached() {
+        // Nothing to do
+    }
 }

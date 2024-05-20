@@ -1,7 +1,6 @@
-package fr.mbidon.lumeenproject.repository.remote
+package fr.mbidon.lumeenproject.repository.datasource
 
 import fr.mbidon.lumeenproject.model.Joke
-import fr.mbidon.lumeenproject.model.SingleJoke
 import fr.mbidon.lumeenproject.network.api.JokeApi
 import fr.mbidon.lumeenproject.network.toJoke
 
