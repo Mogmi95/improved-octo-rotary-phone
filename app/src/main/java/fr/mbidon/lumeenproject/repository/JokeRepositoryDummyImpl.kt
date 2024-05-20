@@ -5,6 +5,8 @@ import fr.mbidon.lumeenproject.model.Joke
 import fr.mbidon.lumeenproject.model.SingleJoke
 import fr.mbidon.lumeenproject.network.JokeDataSourceLocal
 import fr.mbidon.lumeenproject.network.JokeDataSourceRemote
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOf
 
 /**
  * Dummy implementation of the JokeRepository.
@@ -16,12 +18,12 @@ class JokeRepositoryDummyImpl() : JokeRepository {
         return SingleJoke(1, "Hello world of jokes")
     }
 
-    override fun getJokes(): List<Joke> {
+    override fun getStarredJokes(): Flow<List<Joke>> {
         Log.d("JokeRepositoryDummyImpl", "getJokes")
-        return(listOf(
+        return(flowOf(listOf(
             SingleJoke(1, "Hello world of jokes"),
             SingleJoke(2, "Hello world of jokes 2")
-        ))
+        )))
     }
 
     override fun clear() {

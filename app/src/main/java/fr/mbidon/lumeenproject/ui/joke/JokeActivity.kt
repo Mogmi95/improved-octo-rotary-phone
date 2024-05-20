@@ -27,20 +27,17 @@ class JokeActivity: AppCompatActivity(){
         super.onCreate(savedInstanceState)
 
         setContent {
-            JokeScreen()
+            JokeScreen(
+                onStarredListActivityRequested = { /*TODO*/ }
+            )
         }
-    }
-
-    @Preview
-    @Composable
-    fun JokeScreenPreview() {
-        JokeScreen()
     }
 
 
     @Composable
     fun JokeScreen(
-        jokeViewModel: JokeViewModelDummyImpl = viewModel(), // TODO Handle injection
+        onStarredListActivityRequested: () -> Unit,
+        jokeViewModel: JokeViewModelImpl = viewModel(), // TODO Handle injection
         modifier: Modifier = Modifier
     ) {
         val jokeUIState by jokeViewModel.getState().collectAsState()
@@ -73,6 +70,19 @@ class JokeActivity: AppCompatActivity(){
                 onClick = { jokeViewModel.onUserRequestsJoke() },
             ) {
                 Text("Get a new joke")
+            }
+
+            Button(
+                enabled = jokeUIState.joke != null,
+                onClick = { jokeViewModel.onUserRequestedJokeAsStarred(jokeUIState.joke!!) },
+            ) {
+                Text("Star this joke")
+            }
+
+            Button(
+                onClick = { onStarredListActivityRequested },
+            ) {
+                Text("See starred jokes")
             }
         }
     }

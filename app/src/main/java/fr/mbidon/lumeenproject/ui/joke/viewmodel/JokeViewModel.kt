@@ -9,4 +9,5 @@ data class JokeUIState(
 interface JokeViewModel {
     fun getState(): StateFlow<JokeUIState>
     fun onUserRequestsJoke()
+    fun onUserRequestedJokeAsStarred(joke: Joke)
 }

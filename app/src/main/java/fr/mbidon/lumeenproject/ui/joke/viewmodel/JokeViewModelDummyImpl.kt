@@ -1,6 +1,7 @@
 package fr.mbidon.lumeenproject.ui.joke.viewmodel
 
 import androidx.lifecycle.ViewModel
+import fr.mbidon.lumeenproject.model.Joke
 import fr.mbidon.lumeenproject.model.SingleJoke
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -22,5 +23,9 @@ class JokeViewModelDummyImpl : JokeViewModel, ViewModel() {
         _uiState.value = JokeUIState(
             joke = SingleJoke(42, "Hello world of jokes")
         )
+    }
+
+    override fun onUserRequestedJokeAsStarred(joke: Joke) {
+        TODO("Not yet implemented")
     }
 }
