@@ -2,15 +2,10 @@ package fr.mbidon.lumeenproject.network
 
 import fr.mbidon.lumeenproject.model.Joke
 
-interface JokeDataSourceLocal {
+interface JokeDataSourceRemote {
 
     /**
-     * Recovers jokes from the local storage.
+     * Requests new joke from the API.
      */
-    suspend fun getCachedJokes(): List<Joke>
-
-    /**
-     * Saves jokes in the local storage.
-     */
-    suspend fun saveJokesToCache(jokes: List<Joke>)
+    suspend fun requestNewJoke(): Joke // TODO Wrap inside a Result
 }
