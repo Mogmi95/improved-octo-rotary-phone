@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.dagger.hilt)
+    alias(libs.plugins.kotlin.kapt)
 }
 
 android {
@@ -57,15 +59,19 @@ dependencies {
     implementation(libs.android.retrofit.gson)
     testImplementation(libs.junit)
 
+    implementation(libs.dagger.hilt.android)
+    annotationProcessor(libs.google.hilt.compiler)
+    implementation(libs.dagger.hilt.android)
+    kapt(libs.google.hilt.compiler)
 
     val composeBom = platform("androidx.compose:compose-bom:2024.05.00")
     implementation(composeBom)
     androidTestImplementation(composeBom)
-    implementation("androidx.compose.material3:material3")
-    implementation("androidx.compose.ui:ui-tooling-preview")
-    debugImplementation("androidx.compose.ui:ui-tooling")
-    implementation("androidx.activity:activity-compose:1.9.0")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")
+    implementation(libs.androidx.material3)
+    implementation(libs.androidx.ui.tooling.preview)
+    debugImplementation(libs.androidx.ui.tooling)
+    implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
 
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
