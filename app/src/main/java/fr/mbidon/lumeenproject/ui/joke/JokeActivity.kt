@@ -17,18 +17,24 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import fr.mbidon.lumeenproject.ui.joke.viewmodel.JokeViewModelImpl
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.graphics.Color
+import dagger.hilt.android.AndroidEntryPoint
 import fr.mbidon.lumeenproject.model.SingleJoke
 import fr.mbidon.lumeenproject.model.TwoStepsJoke
+import fr.mbidon.lumeenproject.ui.joke.viewmodel.JokeViewModel
 import fr.mbidon.lumeenproject.ui.joke.viewmodel.JokeViewModelDummyImpl
 
+@AndroidEntryPoint
 class JokeActivity: AppCompatActivity(){
+
+    private val jokeViewModel: JokeViewModel by viewModels<JokeViewModelImpl>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContent {
             JokeScreen(
-                onStarredListActivityRequested = { /*TODO*/ }
+                jokeViewModel = jokeViewModel,
+                onStarredListActivityRequested = { /*TODO*/ },
             )
         }
     }
@@ -37,7 +43,7 @@ class JokeActivity: AppCompatActivity(){
     @Composable
     fun JokeScreen(
         onStarredListActivityRequested: () -> Unit,
-        jokeViewModel: JokeViewModelDummyImpl = viewModel(), // TODO Handle injection
+        jokeViewModel: JokeViewModel,
         modifier: Modifier = Modifier
     ) {
         val jokeUIState by jokeViewModel.getState().collectAsState()

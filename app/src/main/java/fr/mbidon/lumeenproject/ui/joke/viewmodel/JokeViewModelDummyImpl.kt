@@ -1,13 +1,16 @@
 package fr.mbidon.lumeenproject.ui.joke.viewmodel
 
 import androidx.lifecycle.ViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import fr.mbidon.lumeenproject.model.Joke
 import fr.mbidon.lumeenproject.model.SingleJoke
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import javax.inject.Inject
 
-class JokeViewModelDummyImpl : JokeViewModel, ViewModel() {
+@HiltViewModel
+class JokeViewModelDummyImpl @Inject constructor() : JokeViewModel, ViewModel() {
 
     private val _uiState = MutableStateFlow(JokeUIState(joke = null))
     private val uiState: StateFlow<JokeUIState> = _uiState.asStateFlow()
