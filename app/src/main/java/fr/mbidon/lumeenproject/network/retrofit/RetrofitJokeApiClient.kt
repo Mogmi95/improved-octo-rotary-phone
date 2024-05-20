@@ -10,11 +10,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 /**
  * Implementation of a client for the JokeApi using Retrofit.
  */
-class RetrofitJokeApiClient: JokeApi {
-
-    private val httpClient : OkHttpClient by lazy {
-        OkHttpClient.Builder().build()
-    }
+class RetrofitJokeApiClient(
+    private val httpClient : OkHttpClient
+): JokeApi {
 
     private val retrofit : Retrofit by lazy {
         Retrofit.Builder()

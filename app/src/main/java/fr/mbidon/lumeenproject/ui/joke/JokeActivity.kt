@@ -12,8 +12,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.lifecycle.viewmodel.compose.viewModel
 import fr.mbidon.lumeenproject.ui.joke.viewmodel.JokeViewModelImpl
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.graphics.Color
@@ -21,11 +19,11 @@ import dagger.hilt.android.AndroidEntryPoint
 import fr.mbidon.lumeenproject.model.SingleJoke
 import fr.mbidon.lumeenproject.model.TwoStepsJoke
 import fr.mbidon.lumeenproject.ui.joke.viewmodel.JokeViewModel
-import fr.mbidon.lumeenproject.ui.joke.viewmodel.JokeViewModelDummyImpl
 
 @AndroidEntryPoint
 class JokeActivity: AppCompatActivity(){
 
+    // Type should not be hardcoded but depend on build flavor
     private val jokeViewModel: JokeViewModel by viewModels<JokeViewModelImpl>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,7 +36,6 @@ class JokeActivity: AppCompatActivity(){
             )
         }
     }
-
 
     @Composable
     fun JokeScreen(

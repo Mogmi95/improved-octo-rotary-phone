@@ -4,11 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import fr.mbidon.lumeenproject.model.Joke
-import fr.mbidon.lumeenproject.network.retrofit.RetrofitJokeApiClient
 import fr.mbidon.lumeenproject.repository.JokeRepository
-import fr.mbidon.lumeenproject.repository.JokeRepositoryImpl
-import fr.mbidon.lumeenproject.repository.local.JokeDataSourceLocalImpl
-import fr.mbidon.lumeenproject.repository.remote.JokeDataSourceRemoteImpl
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -22,11 +18,8 @@ class JokeViewModelImpl @Inject constructor() : JokeViewModel, ViewModel() {
     private val _uiState = MutableStateFlow(JokeUIState(joke = null))
     private val uiState: StateFlow<JokeUIState> = _uiState.asStateFlow()
 
-    // TODO handle injection
-    private val jokeRepository : JokeRepository = JokeRepositoryImpl(
-        jokeDataSourceRemote = JokeDataSourceRemoteImpl(RetrofitJokeApiClient()),
-        jokeDataSourceLocal = JokeDataSourceLocalImpl()
-    ) // Todo handle injection
+    @Inject
+    lateinit var jokeRepository : JokeRepository
 
     override fun getState(): StateFlow<JokeUIState> {
         return uiState
