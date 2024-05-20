@@ -80,7 +80,7 @@ class JokeActivity: AppCompatActivity(){
             }
 
             Button(
-                onClick = { onStarredListActivityRequested },
+                onClick = { onStarredListActivityRequested() },
             ) {
                 Text("See starred jokes")
             }

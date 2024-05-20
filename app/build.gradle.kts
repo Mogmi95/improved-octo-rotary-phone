@@ -53,7 +53,10 @@ dependencies {
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.material)
+    implementation(libs.android.retrofit)
+    implementation(libs.android.retrofit.gson)
     testImplementation(libs.junit)
+
 
     val composeBom = platform("androidx.compose:compose-bom:2024.05.00")
     implementation(composeBom)

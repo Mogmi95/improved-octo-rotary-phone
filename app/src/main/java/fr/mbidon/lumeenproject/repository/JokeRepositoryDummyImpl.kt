@@ -3,8 +3,6 @@ package fr.mbidon.lumeenproject.repository
 import android.util.Log
 import fr.mbidon.lumeenproject.model.Joke
 import fr.mbidon.lumeenproject.model.SingleJoke
-import fr.mbidon.lumeenproject.network.JokeDataSourceLocal
-import fr.mbidon.lumeenproject.network.JokeDataSourceRemote
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 

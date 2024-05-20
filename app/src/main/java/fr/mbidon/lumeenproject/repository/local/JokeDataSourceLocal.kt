@@ -1,4 +1,4 @@
-package fr.mbidon.lumeenproject.network
+package fr.mbidon.lumeenproject.repository.local
 
 import fr.mbidon.lumeenproject.model.Joke
 
