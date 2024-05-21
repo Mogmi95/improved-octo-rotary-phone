@@ -34,11 +34,4 @@ interface JokeRepository {
      * @return a flow of available starred jokes.
      */
     fun getStarredJokes(): StateFlow<List<Joke>>
-
-    /**
-     * Fun's over.
-     *
-     * Deletes any local storage of jokes.
-     */
-    fun clear()
 }

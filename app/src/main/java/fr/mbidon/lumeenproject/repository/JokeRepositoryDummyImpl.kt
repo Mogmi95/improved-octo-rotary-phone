@@ -11,7 +11,6 @@ import javax.inject.Singleton
  * Dummy implementation of the JokeRepository.
  * This implementation is used for testing purposes.
  */
-@Singleton
 class JokeRepositoryDummyImpl : JokeRepository {
 
     private val starredJokes = mutableListOf<Joke>()
@@ -36,12 +35,6 @@ class JokeRepositoryDummyImpl : JokeRepository {
 
     override suspend fun requestUnstarJoke(jokeId: Int) {
         starredJokes.filter { it.id == jokeId }.forEach { starredJokes.remove(it) }
-        notifyStarredJokesChanged()
-    }
-
-    override fun clear() {
-        Log.d("JokeRepositoryDummyImpl", "clear")
-        starredJokes.clear()
         notifyStarredJokesChanged()
     }
 
