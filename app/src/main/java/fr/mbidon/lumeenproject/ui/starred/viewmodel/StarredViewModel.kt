@@ -5,7 +5,7 @@ import fr.mbidon.lumeenproject.ui.joke.viewmodel.JokeUIState
 import kotlinx.coroutines.flow.StateFlow
 
 data class StarredUIState(
-    val starredJokes: List<JokeUIState>
+    val starredJokes: List<Joke>
 )
 
 /**
@@ -26,7 +26,7 @@ interface StarredViewModel {
     /**
      * Get the current state of the UI.
      */
-    fun getState(): StateFlow<JokeUIState>
+    fun getState(): StateFlow<StarredUIState>
 
     /**
      * The user requested a joke to be starred.
