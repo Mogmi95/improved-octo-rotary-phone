@@ -46,6 +46,8 @@ class StarredViewModelImpl @Inject constructor(
     }
 
     override fun onUserRequestedJokeUnstarred(joke: Joke) {
-        TODO("Not yet implemented")
+        viewModelScope.launch(Dispatchers.IO) {
+            jokeRepository.requestUnstarJoke(joke.id)
+        }
     }
 }

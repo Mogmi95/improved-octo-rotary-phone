@@ -1,11 +1,16 @@
 package fr.mbidon.lumeenproject.ui.shared
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import fr.mbidon.lumeenproject.model.SingleJoke
 import fr.mbidon.lumeenproject.model.TwoStepsJoke
 
@@ -25,6 +30,10 @@ fun SingleJokeComponent(
     modifier: Modifier = Modifier
 ) {
     Text(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp)
+        ,
         text = singleJoke.joke
     )
 }
@@ -45,13 +54,17 @@ fun TwoStepsJokeComponent(
     twoStepsJoke: TwoStepsJoke,
     modifier: Modifier = Modifier
 ) {
-    Column {
+    Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp)
+    ) {
         Text(
-            color = Color.Red,
+            color = Color.Black,
             text = twoStepsJoke.setup
         )
         Text(
-            color = Color.Green,
+            color = Color.Gray,
             text = twoStepsJoke.delivery
         )
     }
