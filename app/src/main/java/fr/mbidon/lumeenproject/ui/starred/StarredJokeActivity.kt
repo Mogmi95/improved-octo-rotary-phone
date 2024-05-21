@@ -18,13 +18,13 @@ import fr.mbidon.lumeenproject.model.TwoStepsJoke
 import fr.mbidon.lumeenproject.ui.shared.SingleJokeComponent
 import fr.mbidon.lumeenproject.ui.shared.TwoStepsJokeComponent
 import fr.mbidon.lumeenproject.ui.starred.viewmodel.StarredViewModel
-import fr.mbidon.lumeenproject.ui.starred.viewmodel.StarredViewModelDummyImpl
+import fr.mbidon.lumeenproject.ui.starred.viewmodel.StarredViewModelImpl
 
 @AndroidEntryPoint
 class StarredJokeActivity : AppCompatActivity() {
 
     // Type should not be hardcoded but depend on build flavor
-    private val starredViewModel: StarredViewModel by viewModels<StarredViewModelDummyImpl>()
+    private val starredViewModel: StarredViewModel by viewModels<StarredViewModelImpl>()
 
     override fun onResume() {
         super.onResume()
