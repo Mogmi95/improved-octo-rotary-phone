@@ -24,6 +24,7 @@ import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
@@ -49,7 +50,10 @@ import dagger.hilt.android.AndroidEntryPoint
 import fr.mbidon.lumeenproject.R
 import fr.mbidon.lumeenproject.model.SingleJoke
 import fr.mbidon.lumeenproject.model.TwoStepsJoke
+import fr.mbidon.lumeenproject.ui.joke.viewmodel.JokeStarredUIState
+import fr.mbidon.lumeenproject.ui.joke.viewmodel.JokeUIState
 import fr.mbidon.lumeenproject.ui.joke.viewmodel.JokeViewModel
+import fr.mbidon.lumeenproject.ui.joke.viewmodel.JokeViewModelDummyImpl
 import fr.mbidon.lumeenproject.ui.shared.SingleJokeComponent
 import fr.mbidon.lumeenproject.ui.shared.TwoStepsJokeComponent
 import fr.mbidon.lumeenproject.ui.starred.StarredJokeActivity
@@ -127,7 +131,8 @@ class JokeActivity: AppCompatActivity(){
         jokeViewModel: JokeViewModel,
         modifier: Modifier = Modifier
     ) {
-        val jokeUIState by jokeViewModel.getState().collectAsState()
+        val jokeUIState by jokeViewModel.getJokeState().collectAsState()
+        val jokeStarredUIState by jokeViewModel.getJokeStarredState().collectAsState()
 
         Column(
             verticalArrangement = Arrangement.Center,
@@ -135,45 +140,84 @@ class JokeActivity: AppCompatActivity(){
             modifier = Modifier
                 .fillMaxSize()
         ) {
-            if (jokeUIState.joke == null) {
-                Text(stringResource(R.string.press_refresh))
+            when(val jokeUIState = jokeUIState) {
+                JokeUIState.Empty -> {
+                    Text(stringResource(R.string.press_refresh))
+                }
+                is JokeUIState.Error -> {
+                    Text("Error: ${jokeUIState.message}", color = Color.Red)
+                }
+                JokeUIState.Loading -> {
+                    CircularProgressIndicator()
+                }
+                is JokeUIState.Success -> {
+                    JokeCard(
+                        modifier = modifier,
+                        jokeUIState = jokeUIState,
+                        jokeStarredUIState = jokeStarredUIState,
+                    )
+                }
+            }
+            if (jokeUIState is JokeUIState.Empty) {
+
             } else {
-                ElevatedCard(
-                    colors = CardDefaults.cardColors(
-                        containerColor = MaterialTheme.colorScheme.surfaceVariant,
-                    ),
-                    elevation = CardDefaults.cardElevation(
-                        defaultElevation = 6.dp
-                    ),
-                    modifier = Modifier.fillMaxWidth(0.75f)
-                ) {
-                    Row(
-                        horizontalArrangement = Arrangement.End,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(8.dp)
-                    ) {
-                        IconButton(onClick = { jokeViewModel.onUserRequestedJokeAsStarred(jokeUIState.joke!!) }) {
-                            when (jokeUIState.isJokeStarred) {
+
+            }
+        }
+    }
+
+    @Composable
+    fun JokeCard(
+        modifier: Modifier,
+        jokeUIState: JokeUIState.Success,
+        jokeStarredUIState: JokeStarredUIState,
+    ) {
+        ElevatedCard(
+            colors = CardDefaults.cardColors(
+                containerColor = MaterialTheme.colorScheme.surfaceVariant,
+            ),
+            elevation = CardDefaults.cardElevation(
+                defaultElevation = 6.dp
+            ),
+            modifier = Modifier.fillMaxWidth(0.75f)
+        ) {
+            Row(
+                horizontalArrangement = Arrangement.End,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp)
+            ) {
+                when (val starredStatus = jokeStarredUIState) {
+                    is JokeStarredUIState.Error -> {
+                        // Probably should propose a recovery action
+                        Text("Error: ${starredStatus.message}", color = Color.Red)
+                    }
+                    JokeStarredUIState.Empty,
+                    JokeStarredUIState.Loading -> {
+                        CircularProgressIndicator()
+                    }
+                    is JokeStarredUIState.Success -> {
+                        IconButton(onClick = { jokeViewModel.onUserRequestedJokeAsStarred(jokeUIState.joke) }) {
+                            when (starredStatus.isJokeStarred) {
                                 true -> Icon(Icons.Default.Favorite, contentDescription = "Unstar")
                                 false -> Icon(Icons.Default.FavoriteBorder, contentDescription = "Star")
                             }
                         }
                     }
-                    when (jokeUIState.joke) {
-                        is SingleJoke -> {
-                            SingleJokeComponent(
-                                singleJoke = jokeUIState.joke as SingleJoke,
-                                modifier = modifier
-                            )
-                        }
-                        is TwoStepsJoke -> {
-                            TwoStepsJokeComponent(
-                                twoStepsJoke = jokeUIState.joke as TwoStepsJoke,
-                                modifier = modifier
-                            )
-                        }
-                    }
+                }
+            }
+            when (jokeUIState.joke) {
+                is SingleJoke -> {
+                    SingleJokeComponent(
+                        singleJoke = jokeUIState.joke as SingleJoke,
+                        modifier = modifier
+                    )
+                }
+                is TwoStepsJoke -> {
+                    TwoStepsJokeComponent(
+                        twoStepsJoke = jokeUIState.joke as TwoStepsJoke,
+                        modifier = modifier
+                    )
                 }
             }
         }

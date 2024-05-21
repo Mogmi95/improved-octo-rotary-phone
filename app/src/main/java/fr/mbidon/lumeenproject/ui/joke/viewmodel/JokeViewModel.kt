@@ -3,10 +3,19 @@ package fr.mbidon.lumeenproject.ui.joke.viewmodel
 import fr.mbidon.lumeenproject.model.Joke
 import kotlinx.coroutines.flow.StateFlow
 
-data class JokeUIState(
-    val joke: Joke?,
-    val isJokeStarred: Boolean = false,
-)
+sealed interface JokeUIState {
+    data object Empty : JokeUIState
+    data object Loading : JokeUIState
+    data class Success(val joke: Joke) : JokeUIState
+    data class Error(val message: String) : JokeUIState
+}
+
+sealed interface JokeStarredUIState {
+    data object Empty : JokeStarredUIState
+    data object Loading : JokeStarredUIState
+    data class Success(val isJokeStarred: Boolean) : JokeStarredUIState
+    data class Error(val message: String) : JokeStarredUIState
+}
 
 /**
  * ViewModel for the Joke screen.
@@ -24,9 +33,14 @@ interface JokeViewModel {
     fun onDetached()
 
     /**
-     * Get the current state of the UI.
+     * Get info about the current joke.
      */
-    fun getState(): StateFlow<JokeUIState>
+    fun getJokeState(): StateFlow<JokeUIState>
+
+    /**
+     * Get info about the current joke starred status.
+     */
+    fun getJokeStarredState(): StateFlow<JokeStarredUIState>
 
     /**
      * The user requested a new joke.

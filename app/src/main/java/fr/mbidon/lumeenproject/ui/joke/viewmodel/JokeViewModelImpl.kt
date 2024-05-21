@@ -8,6 +8,7 @@ import fr.mbidon.lumeenproject.model.Joke
 import fr.mbidon.lumeenproject.repository.JokeRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -19,13 +20,22 @@ class JokeViewModelImpl @Inject constructor(
     private val jokeRepository : JokeRepository
 ) : JokeViewModel, ViewModel() {
 
-    private val _uiState = MutableStateFlow(JokeUIState(joke = null))
-    private val uiState: StateFlow<JokeUIState> = _uiState.asStateFlow()
+    // Joke status
+    private val _uiJokeState = MutableStateFlow<JokeUIState>(JokeUIState.Empty)
+    private val uiJokeState: StateFlow<JokeUIState> = _uiJokeState.asStateFlow()
+
+    // Starred status for current joke
+    private val _uiJokeStarredState = MutableStateFlow<JokeStarredUIState>(JokeStarredUIState.Empty)
+    private val uiJokeStarredState: StateFlow<JokeStarredUIState> = _uiJokeStarredState.asStateFlow()
 
     private var monitoringJob : Job? = null
 
-    override fun getState(): StateFlow<JokeUIState> {
-        return uiState
+    override fun getJokeState(): StateFlow<JokeUIState> {
+        return uiJokeState
+    }
+
+    override fun getJokeStarredState(): StateFlow<JokeStarredUIState> {
+        return uiJokeStarredState
     }
 
     override fun onAttached() {
@@ -33,8 +43,18 @@ class JokeViewModelImpl @Inject constructor(
         monitoringJob = viewModelScope.launch(Dispatchers.IO) {
             jokeRepository.getStarredJokes()
                 .collect { jokes ->
-                    val currentJoke = jokes.firstOrNull { it.id == _uiState.value.joke?.id }
-                    _uiState.value = _uiState.value.copy(isJokeStarred = currentJoke != null)
+                    val currentJoke = jokes.firstOrNull {
+                        when (val state = _uiJokeState.value) {
+                            is JokeUIState.Success -> it.id == state.joke.id
+                            else -> false
+                        }
+                    }
+                    delay(500)
+                    if (currentJoke != null) {
+                        _uiJokeStarredState.value = JokeStarredUIState.Success(isJokeStarred = true)
+                    } else {
+                        _uiJokeStarredState.value = JokeStarredUIState.Success(isJokeStarred = false)
+                    }
                 }
         }
     }
@@ -45,20 +65,35 @@ class JokeViewModelImpl @Inject constructor(
     }
 
     override fun onUserRequestsJoke() {
+        _uiJokeState.value = JokeUIState.Loading
+        _uiJokeStarredState.value = JokeStarredUIState.Loading
+
         viewModelScope.launch(Dispatchers.IO) {
             val newJoke = jokeRepository.requestNewJoke()
-            _uiState.value = JokeUIState(joke = newJoke)
+            // For user experience, we add a delay to show the loading state
+            delay(500)
+            if (newJoke == null) {
+                _uiJokeState.value = JokeUIState.Error("Failed to get a new joke")
+                _uiJokeStarredState.value = JokeStarredUIState.Empty
+            } else {
+                _uiJokeState.value = JokeUIState.Success(joke = newJoke)
+                _uiJokeStarredState.value = JokeStarredUIState.Success(isJokeStarred = false)
+            }
         }
-        // TODO UI Feedback
     }
     override fun onUserRequestedJokeAsStarred(joke: Joke) {
         viewModelScope.launch(Dispatchers.IO) {
-            if (_uiState.value.isJokeStarred) {
-                jokeRepository.requestUnstarJoke(joke.id)
-            } else {
-                jokeRepository.requestStarJoke(joke)
+            when (val state = _uiJokeStarredState.value) {
+                is JokeStarredUIState.Success -> {
+                    _uiJokeStarredState.value = JokeStarredUIState.Loading
+                    if (state.isJokeStarred) {
+                        jokeRepository.requestUnstarJoke(joke.id)
+                    } else {
+                        jokeRepository.requestStarJoke(joke)
+                    }
+                }
+                else -> { /* Nothing */ }
             }
-
         }
     }
 }
