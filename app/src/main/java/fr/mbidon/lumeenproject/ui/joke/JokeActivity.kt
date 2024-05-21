@@ -1,5 +1,6 @@
 package fr.mbidon.lumeenproject.ui.joke
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -19,23 +20,15 @@ import dagger.hilt.android.AndroidEntryPoint
 import fr.mbidon.lumeenproject.model.SingleJoke
 import fr.mbidon.lumeenproject.model.TwoStepsJoke
 import fr.mbidon.lumeenproject.ui.joke.viewmodel.JokeViewModel
+import fr.mbidon.lumeenproject.ui.shared.SingleJokeComponent
+import fr.mbidon.lumeenproject.ui.shared.TwoStepsJokeComponent
+import fr.mbidon.lumeenproject.ui.starred.StarredJokeActivity
 
 @AndroidEntryPoint
 class JokeActivity: AppCompatActivity(){
 
     // Type should not be hardcoded but depend on build flavor
     private val jokeViewModel: JokeViewModel by viewModels<JokeViewModelImpl>()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        setContent {
-            JokeScreen(
-                jokeViewModel = jokeViewModel,
-                onStarredListActivityRequested = { /*TODO*/ },
-            )
-        }
-    }
 
     override fun onResume() {
         super.onResume()
@@ -45,6 +38,21 @@ class JokeActivity: AppCompatActivity(){
     override fun onPause() {
         super.onPause()
         jokeViewModel.onDetached()
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        setContent {
+            JokeScreen(
+                jokeViewModel = jokeViewModel,
+                onStarredListActivityRequested = {
+                    // TODO Navigation logic should be handled elsewhere
+                    val starredIntent = Intent(this, StarredJokeActivity::class.java)
+                    startActivity(starredIntent)
+                },
+            )
+        }
     }
 
     @Composable

@@ -1,4 +1,4 @@
-package fr.mbidon.lumeenproject.ui.joke
+package fr.mbidon.lumeenproject.ui.shared
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Text
