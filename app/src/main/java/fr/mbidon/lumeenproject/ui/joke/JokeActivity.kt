@@ -102,28 +102,4 @@ class JokeActivity: AppCompatActivity(){
             }
         }
     }
-    @Composable
-    fun SingleJokeComponent(
-        singleJoke: SingleJoke,
-        modifier: Modifier = Modifier
-    ) {
-        Text(
-            text = singleJoke.joke
-        )
-    }
-
-    @Composable
-    fun TwoStepsJokeComponent(
-        twoStepsJoke: TwoStepsJoke,
-        modifier: Modifier = Modifier
-    ) {
-        Column {
-            Text(
-                text = twoStepsJoke.setup
-            )
-            Text(
-                text = twoStepsJoke.delivery
-            )
-        }
-    }
 }
