@@ -1,4 +1,4 @@
-package fr.mbidon.lumeenproject.repository.datasource
+package fr.mbidon.lumeenproject.repository.datasource.local
 
 import android.util.Log
 import fr.mbidon.lumeenproject.model.Joke

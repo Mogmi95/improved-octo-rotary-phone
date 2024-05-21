@@ -1,7 +1,7 @@
 package fr.mbidon.lumeenproject.repository
 
 import fr.mbidon.lumeenproject.model.Joke
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.Flow
 
 /**
  * Repository to manage Jokes
@@ -33,5 +33,5 @@ interface JokeRepository {
      *
      * @return a flow of available starred jokes.
      */
-    fun getStarredJokes(): StateFlow<List<Joke>>
+    fun getStarredJokes(): Flow<List<Joke>>
 }

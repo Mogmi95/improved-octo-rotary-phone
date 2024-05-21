@@ -1,8 +1,8 @@
 package fr.mbidon.lumeenproject.repository
 
 import fr.mbidon.lumeenproject.model.Joke
-import fr.mbidon.lumeenproject.repository.datasource.JokeDataSourceLocal
-import fr.mbidon.lumeenproject.repository.datasource.JokeDataSourceRemote
+import fr.mbidon.lumeenproject.repository.datasource.local.JokeDataSourceLocal
+import fr.mbidon.lumeenproject.repository.datasource.remote.JokeDataSourceRemote
 
 class JokeRepositoryImpl(
     private val jokeDataSourceRemote: JokeDataSourceRemote,
