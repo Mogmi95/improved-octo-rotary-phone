@@ -58,6 +58,8 @@ dependencies {
     implementation(libs.android.retrofit)
     implementation(libs.android.retrofit.gson)
     testImplementation(libs.junit)
+    testImplementation(libs.mockito.core)
+    testImplementation(libs.coroutines.test)
 
     implementation(libs.dagger.hilt.android)
     annotationProcessor(libs.google.hilt.compiler)
