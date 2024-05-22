@@ -29,14 +29,12 @@ class RetrofitJokeApiClient(
     override suspend fun getJoke(): NetworkResponse<RemoteJokeModel> {
         jokeApi.getJoke().let {
             return if (it.isSuccessful) {
-                NetworkResponse(
-                    hasError = false,
+                NetworkResponse.Success(
                     data = it.body()!!
                 )
             } else {
-                NetworkResponse(
-                    hasError = true,
-                    data = null
+                NetworkResponse.Error(
+                    message = "Network error"
                 )
             }
         }

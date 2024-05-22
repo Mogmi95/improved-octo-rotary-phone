@@ -3,7 +3,8 @@ package fr.mbidon.lumeenproject.network
 /**
  * A *very* simple error wrapper.
  */
-data class NetworkResponse<T>(
-    val data: T?,
-    val hasError: Boolean,
-)
+sealed class NetworkResponse<out T> {
+    data class Success<T>(val data: T?) : NetworkResponse<T>()
+    data class Error(val message: String) : NetworkResponse<Nothing>()
+}
+

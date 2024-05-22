@@ -43,6 +43,4 @@ class JokeViewModelImplTest {
         // then
         assert(viewModel.getJokeState().value == JokeUIState.Success(joke = SingleJoke(jokeId = 1, joke = "Joke")))
     }
-
-
 }
