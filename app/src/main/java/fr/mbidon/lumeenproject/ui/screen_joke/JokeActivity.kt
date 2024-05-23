@@ -44,9 +44,9 @@ import fr.mbidon.lumeenproject.ui.screen_joke.viewmodel.JokeStarredUIState
 import fr.mbidon.lumeenproject.ui.screen_joke.viewmodel.JokeUIState
 import fr.mbidon.lumeenproject.ui.screen_joke.viewmodel.JokeViewModel
 import fr.mbidon.lumeenproject.ui.screen_joke.viewmodel.JokeViewModelImpl
+import fr.mbidon.lumeenproject.ui.screen_starred.StarredJokeActivity
 import fr.mbidon.lumeenproject.ui.shared.SingleJokeComponent
 import fr.mbidon.lumeenproject.ui.shared.TwoStepsJokeComponent
-import fr.mbidon.lumeenproject.ui.screen_starred.StarredJokeActivity
 import fr.mbidon.lumeenproject.ui.theme.AppTheme
 
 @AndroidEntryPoint
@@ -93,8 +93,7 @@ class JokeActivity: AppCompatActivity(){
                                     )
                                 }
                             },
-
-                            )
+                        )
                     },
                     floatingActionButton = {
                         FloatingActionButton(
@@ -107,10 +106,8 @@ class JokeActivity: AppCompatActivity(){
 
                 ) { padding ->
                     JokeScreen(
-                        modifier = Modifier.padding(padding),
+                        modifier = Modifier.padding(top = padding.calculateTopPadding()),
                         jokeViewModel = jokeViewModel,
-                        onStarredListActivityRequested = {
-                        },
                     )
                 }
             }
@@ -119,7 +116,6 @@ class JokeActivity: AppCompatActivity(){
 
     @Composable
     fun JokeScreen(
-        onStarredListActivityRequested: () -> Unit,
         jokeViewModel: JokeViewModel,
         modifier: Modifier = Modifier
     ) {

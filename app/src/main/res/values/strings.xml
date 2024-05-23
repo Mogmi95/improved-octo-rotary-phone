@@ -3,4 +3,6 @@
     <string name="activity_jokes_title">Dev jokes</string>
     <string name="activity_starred_title">Starred jokes</string>
     <string name="press_refresh">Press refresh to get a joke!</string>
+    <string name="screen_starred_no_starred_joke">No starred joke.</string>
+    <string name="starred_jokes_title">Starred jokes</string>
 </resources>

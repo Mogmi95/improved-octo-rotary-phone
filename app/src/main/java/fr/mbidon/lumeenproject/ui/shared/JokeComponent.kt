@@ -31,7 +31,6 @@ fun SingleJokeComponent(
 ) {
     Text(
         modifier = Modifier
-            .fillMaxWidth()
             .padding(16.dp)
         ,
         text = singleJoke.joke
@@ -56,7 +55,6 @@ fun TwoStepsJokeComponent(
 ) {
     Column(
             modifier = Modifier
-                .fillMaxWidth()
                 .padding(16.dp)
     ) {
         Text(
