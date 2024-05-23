@@ -1,4 +1,4 @@
-package fr.mbidon.lumeenproject.ui.joke
+package fr.mbidon.lumeenproject.ui.screen_joke
 
 import android.content.Intent
 import android.os.Bundle
@@ -40,13 +40,13 @@ import dagger.hilt.android.AndroidEntryPoint
 import fr.mbidon.lumeenproject.R
 import fr.mbidon.lumeenproject.model.SingleJoke
 import fr.mbidon.lumeenproject.model.TwoStepsJoke
-import fr.mbidon.lumeenproject.ui.joke.viewmodel.JokeStarredUIState
-import fr.mbidon.lumeenproject.ui.joke.viewmodel.JokeUIState
-import fr.mbidon.lumeenproject.ui.joke.viewmodel.JokeViewModel
-import fr.mbidon.lumeenproject.ui.joke.viewmodel.JokeViewModelImpl
+import fr.mbidon.lumeenproject.ui.screen_joke.viewmodel.JokeStarredUIState
+import fr.mbidon.lumeenproject.ui.screen_joke.viewmodel.JokeUIState
+import fr.mbidon.lumeenproject.ui.screen_joke.viewmodel.JokeViewModel
+import fr.mbidon.lumeenproject.ui.screen_joke.viewmodel.JokeViewModelImpl
 import fr.mbidon.lumeenproject.ui.shared.SingleJokeComponent
 import fr.mbidon.lumeenproject.ui.shared.TwoStepsJokeComponent
-import fr.mbidon.lumeenproject.ui.starred.StarredJokeActivity
+import fr.mbidon.lumeenproject.ui.screen_starred.StarredJokeActivity
 import fr.mbidon.lumeenproject.ui.theme.AppTheme
 
 @AndroidEntryPoint

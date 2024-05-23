@@ -1,4 +1,4 @@
-package fr.mbidon.lumeenproject.ui.starred
+package fr.mbidon.lumeenproject.ui.screen_starred
 
 import android.os.Bundle
 import androidx.activity.compose.setContent
@@ -26,10 +26,10 @@ import dagger.hilt.android.AndroidEntryPoint
 import fr.mbidon.lumeenproject.R
 import fr.mbidon.lumeenproject.model.SingleJoke
 import fr.mbidon.lumeenproject.model.TwoStepsJoke
+import fr.mbidon.lumeenproject.ui.screen_starred.viewmodel.StarredViewModel
+import fr.mbidon.lumeenproject.ui.screen_starred.viewmodel.StarredViewModelImpl
 import fr.mbidon.lumeenproject.ui.shared.SingleJokeComponent
 import fr.mbidon.lumeenproject.ui.shared.TwoStepsJokeComponent
-import fr.mbidon.lumeenproject.ui.starred.viewmodel.StarredViewModel
-import fr.mbidon.lumeenproject.ui.starred.viewmodel.StarredViewModelImpl
 import fr.mbidon.lumeenproject.ui.theme.AppTheme
 
 @AndroidEntryPoint

@@ -1,7 +1,6 @@
-package fr.mbidon.lumeenproject.ui.starred.viewmodel
+package fr.mbidon.lumeenproject.ui.screen_starred.viewmodel
 
 import fr.mbidon.lumeenproject.model.Joke
-import fr.mbidon.lumeenproject.ui.joke.viewmodel.JokeUIState
 import kotlinx.coroutines.flow.StateFlow
 
 data class StarredUIState(

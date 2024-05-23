@@ -1,4 +1,4 @@
-package fr.mbidon.lumeenproject.ui.joke.viewmodel
+package fr.mbidon.lumeenproject.ui.screen_joke.viewmodel
 
 import fr.mbidon.lumeenproject.model.SingleJoke
 import fr.mbidon.lumeenproject.repository.JokeRepository

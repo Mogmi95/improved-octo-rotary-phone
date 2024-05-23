@@ -1,4 +1,4 @@
-package fr.mbidon.lumeenproject.ui.starred.viewmodel
+package fr.mbidon.lumeenproject.ui.screen_starred.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

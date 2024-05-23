@@ -1,4 +1,4 @@
-package fr.mbidon.lumeenproject.ui.joke.viewmodel
+package fr.mbidon.lumeenproject.ui.screen_joke.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
