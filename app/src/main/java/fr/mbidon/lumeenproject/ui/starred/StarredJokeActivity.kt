@@ -4,9 +4,7 @@ import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -14,19 +12,15 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.FavoriteBorder
-import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import dagger.hilt.android.AndroidEntryPoint
 import fr.mbidon.lumeenproject.R
@@ -36,6 +30,7 @@ import fr.mbidon.lumeenproject.ui.shared.SingleJokeComponent
 import fr.mbidon.lumeenproject.ui.shared.TwoStepsJokeComponent
 import fr.mbidon.lumeenproject.ui.starred.viewmodel.StarredViewModel
 import fr.mbidon.lumeenproject.ui.starred.viewmodel.StarredViewModelImpl
+import fr.mbidon.lumeenproject.ui.theme.AppTheme
 
 @AndroidEntryPoint
 class StarredJokeActivity : AppCompatActivity() {
@@ -59,9 +54,11 @@ class StarredJokeActivity : AppCompatActivity() {
         setTitle(getString(R.string.activity_starred_title))
         actionBar?.displayOptions = android.app.ActionBar.DISPLAY_HOME_AS_UP
         setContent {
-            StarredScreen(
-                starredViewModel = starredViewModel
-            )
+            AppTheme {
+                StarredScreen(
+                    starredViewModel = starredViewModel
+                )
+            }
         }
     }
 
