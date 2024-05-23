@@ -60,6 +60,8 @@ dependencies {
     testImplementation(libs.junit)
     testImplementation(libs.mockito.core)
     testImplementation(libs.coroutines.test)
+    androidTestImplementation(libs.ui.test.junit4)
+    androidTestDebugImplementation(libs.ui.test.manifest)
 
     implementation(libs.dagger.hilt.android)
     annotationProcessor(libs.google.hilt.compiler)

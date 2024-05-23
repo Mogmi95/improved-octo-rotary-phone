@@ -33,6 +33,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import dagger.hilt.android.AndroidEntryPoint
@@ -98,6 +99,7 @@ class JokeActivity: AppCompatActivity(){
                     floatingActionButton = {
                         FloatingActionButton(
                             onClick = { jokeViewModel.onUserRequestsJoke() },
+                            modifier = Modifier.testTag("screen_joke_fab")
                         ) {
                             Icon(Icons.Default.Refresh, contentDescription = "Add")
                         }
@@ -108,7 +110,6 @@ class JokeActivity: AppCompatActivity(){
                         modifier = Modifier.padding(padding),
                         jokeViewModel = jokeViewModel,
                         onStarredListActivityRequested = {
-
                         },
                     )
                 }
@@ -133,13 +134,18 @@ class JokeActivity: AppCompatActivity(){
         ) {
             when(val jokeUIState = jokeUIState) {
                 JokeUIState.Empty -> {
-                    Text(stringResource(R.string.press_refresh))
+                    Text(
+                        stringResource(R.string.press_refresh),
+                        modifier = Modifier.testTag("screen_joke_empty_text")
+                    )
                 }
                 is JokeUIState.Error -> {
                     Text("Error: ${jokeUIState.message}", color = Color.Red)
                 }
                 JokeUIState.Loading -> {
-                    CircularProgressIndicator()
+                    CircularProgressIndicator(
+                        modifier = Modifier.testTag("screen_joke_loading")
+                    )
                 }
                 is JokeUIState.Success -> {
                     JokeCard(
@@ -170,7 +176,9 @@ class JokeActivity: AppCompatActivity(){
             elevation = CardDefaults.cardElevation(
                 defaultElevation = 6.dp
             ),
-            modifier = Modifier.fillMaxWidth(0.75f)
+            modifier = Modifier
+                .fillMaxWidth(0.75f)
+                .testTag("screen_joke_card_container")
         ) {
             Row(
                 horizontalArrangement = Arrangement.End,
@@ -178,10 +186,10 @@ class JokeActivity: AppCompatActivity(){
                     .fillMaxWidth()
                     .padding(8.dp)
             ) {
-                when (val starredStatus = jokeStarredUIState) {
+                when (jokeStarredUIState) {
                     is JokeStarredUIState.Error -> {
                         // Probably should propose a recovery action
-                        Text("Error: ${starredStatus.message}", color = Color.Red)
+                        Text("Error: ${jokeStarredUIState.message}", color = Color.Red)
                     }
                     JokeStarredUIState.Empty,
                     JokeStarredUIState.Loading -> {
@@ -189,9 +197,12 @@ class JokeActivity: AppCompatActivity(){
                     }
                     is JokeStarredUIState.Success -> {
                         IconButton(onClick = { jokeViewModel.onUserRequestedJokeAsStarred(jokeUIState.joke) }) {
-                            when (starredStatus.isJokeStarred) {
+                            when (jokeStarredUIState.isJokeStarred) {
                                 true -> Icon(Icons.Default.Favorite, contentDescription = "Unstar")
-                                false -> Icon(Icons.Default.FavoriteBorder, contentDescription = "Star")
+                                false -> Icon(
+                                    Icons.Default.FavoriteBorder,
+                                    contentDescription = "Star"
+                                )
                             }
                         }
                     }
