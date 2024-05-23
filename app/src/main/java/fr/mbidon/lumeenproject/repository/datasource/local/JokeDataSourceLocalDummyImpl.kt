@@ -1,6 +1,5 @@
 package fr.mbidon.lumeenproject.repository.datasource.local
 
-import android.util.Log
 import fr.mbidon.lumeenproject.model.Joke
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -13,7 +12,6 @@ class JokeDataSourceLocalDummyImpl : JokeDataSourceLocal {
     private val _starredJokesFlow = MutableStateFlow(emptyList<Joke>())
 
     override fun getStarredJokes(): StateFlow<List<Joke>> {
-        Log.d("JokeDataSourceLocalDummyImpl", "SUBSCRIBED TO STARRED JOKES FLOW ${this.hashCode()}")
         return _starredJokesFlow.asStateFlow()
     }
 
@@ -30,7 +28,6 @@ class JokeDataSourceLocalDummyImpl : JokeDataSourceLocal {
     }
 
     private fun notifyStarredJokesChanged() {
-        Log.d("JokeDataSourceLocalDummyImpl", "notifyStarredJokesChanged ${starredJokes}")
         _starredJokesFlow.value = starredJokes.toList()
     }
 }

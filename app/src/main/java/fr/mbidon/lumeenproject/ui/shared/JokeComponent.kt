@@ -1,9 +1,6 @@
 package fr.mbidon.lumeenproject.ui.shared
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -30,7 +27,7 @@ fun SingleJokeComponent(
     modifier: Modifier = Modifier
 ) {
     Text(
-        modifier = Modifier
+        modifier = modifier
             .padding(16.dp)
         ,
         text = singleJoke.joke
@@ -54,7 +51,7 @@ fun TwoStepsJokeComponent(
     modifier: Modifier = Modifier
 ) {
     Column(
-            modifier = Modifier
+            modifier = modifier
                 .padding(16.dp)
     ) {
         Text(

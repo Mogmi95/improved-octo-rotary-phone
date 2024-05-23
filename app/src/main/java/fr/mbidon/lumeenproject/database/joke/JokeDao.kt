@@ -11,7 +11,7 @@ interface JokeDao {
     fun getAll(): Flow<List<JokeEntity>>
 
     @Insert
-    fun insert(jokeEntitie: JokeEntity)
+    fun insert(jokeEntity: JokeEntity)
 
     @Query("DELETE FROM jokeEntity WHERE id = :jokeId")
     fun deleteWithId(jokeId: Int)

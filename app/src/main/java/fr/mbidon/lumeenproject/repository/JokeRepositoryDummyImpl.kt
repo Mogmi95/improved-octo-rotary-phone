@@ -17,7 +17,6 @@ class JokeRepositoryDummyImpl : JokeRepository {
     private val _starredJokesFlow = MutableStateFlow(emptyList<Joke>())
 
     override suspend fun requestNewJoke(): Joke? {
-        Log.d("JokeRepositoryDummyImpl", "requestNewJoke")
         val newJoke = SingleJoke(starredJokes.size + 1, "Hello world of ${starredJokes.size + 1}")
         return newJoke
     }

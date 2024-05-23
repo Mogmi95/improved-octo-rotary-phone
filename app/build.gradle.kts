@@ -62,7 +62,6 @@ dependencies {
     testImplementation(libs.coroutines.test)
     androidTestImplementation(libs.ui.test.junit4)
     androidTestDebugImplementation(libs.ui.test.manifest)
-
     implementation(libs.dagger.hilt.android)
     annotationProcessor(libs.google.hilt.compiler)
     implementation(libs.dagger.hilt.android)
@@ -81,7 +80,6 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
-
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 }

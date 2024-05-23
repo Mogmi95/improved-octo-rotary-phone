@@ -83,7 +83,6 @@ class JokeActivity: AppCompatActivity(){
                             },
                             actions = {
                                 IconButton(onClick = {
-                                    // TODO Navigation logic should be handled elsewhere
                                     val starredIntent = Intent(this@JokeActivity, StarredJokeActivity::class.java)
                                     startActivity(starredIntent)
                                 }) {
@@ -125,7 +124,7 @@ class JokeActivity: AppCompatActivity(){
         Column(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxSize()
         ) {
             when(val jokeUIState = jokeUIState) {
@@ -151,11 +150,6 @@ class JokeActivity: AppCompatActivity(){
                     )
                 }
             }
-            if (jokeUIState is JokeUIState.Empty) {
-
-            } else {
-
-            }
         }
     }
 
@@ -172,7 +166,7 @@ class JokeActivity: AppCompatActivity(){
             elevation = CardDefaults.cardElevation(
                 defaultElevation = 6.dp
             ),
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxWidth(0.75f)
                 .testTag("screen_joke_card_container")
         ) {
@@ -208,13 +202,11 @@ class JokeActivity: AppCompatActivity(){
                 is SingleJoke -> {
                     SingleJokeComponent(
                         singleJoke = jokeUIState.joke as SingleJoke,
-                        modifier = modifier
                     )
                 }
                 is TwoStepsJoke -> {
                     TwoStepsJokeComponent(
                         twoStepsJoke = jokeUIState.joke as TwoStepsJoke,
-                        modifier = modifier
                     )
                 }
             }

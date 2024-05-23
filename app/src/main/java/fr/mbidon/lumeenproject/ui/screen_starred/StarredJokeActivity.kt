@@ -23,7 +23,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
@@ -87,13 +86,10 @@ class StarredJokeActivity : AppCompatActivity() {
                         )
                     },
                 ) { padding ->
-                    Surface(
-                        modifier = Modifier.padding(top = padding.calculateTopPadding()),
-                    ) {
-                        StarredScreen(
-                            starredViewModel = starredViewModel,
-                        )
-                    }
+                    StarredScreen(
+                        starredViewModel = starredViewModel,
+                        modifier = Modifier.padding(top = padding.calculateTopPadding())
+                    )
                 }
             }
         }
@@ -109,7 +105,7 @@ class StarredJokeActivity : AppCompatActivity() {
             Column(
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier
+                modifier = modifier
                     .fillMaxSize()
             ) {
                 Text(stringResource(R.string.screen_starred_no_starred_joke))
@@ -117,7 +113,7 @@ class StarredJokeActivity : AppCompatActivity() {
         } else {
             LazyColumn(
                 verticalArrangement = Arrangement.spacedBy(8.dp),
-                modifier = Modifier.padding(8.dp)
+                modifier = modifier.padding(8.dp)
             ) {
                 items(starredUIState.starredJokes) { starredJoke ->
                     ElevatedCard(
@@ -136,21 +132,18 @@ class StarredJokeActivity : AppCompatActivity() {
                         ) {
                             IconButton(onClick = { starredViewModel.onUserRequestedJokeUnstarred(starredJoke) }) {
                                 // The joke will disappear from the list once unstarred
-                                // TODO Progress status
                                 Icon(Icons.Default.Favorite, contentDescription = "Unstar")
                             }
                         }
                         when (starredJoke) {
                             is SingleJoke -> {
                                 SingleJokeComponent(
-                                    singleJoke = starredJoke,
-                                    modifier = modifier
+                                    singleJoke = starredJoke
                                 )
                             }
                             is TwoStepsJoke -> {
                                 TwoStepsJokeComponent(
-                                    twoStepsJoke = starredJoke,
-                                    modifier = modifier
+                                    twoStepsJoke = starredJoke
                                 )
                             }
                         }

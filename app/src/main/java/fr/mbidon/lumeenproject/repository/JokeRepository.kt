@@ -10,7 +10,7 @@ interface JokeRepository {
     /**
      * Request a new joke.
      *
-     * @return a new joke or null if the network is not available.
+     * @return a new joke or null if something went wrong.
      */
     suspend fun requestNewJoke(): Joke?
 
